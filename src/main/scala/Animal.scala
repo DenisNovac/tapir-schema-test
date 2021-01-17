@@ -19,7 +19,7 @@ object Animal extends AutoDerivation with SchemaDerivation {
   implicit val tapirConfig: TapirConfiguration = TapirConfiguration.default.withDiscriminator("type")
 
   // It can't be implicit since recursive derivation fails
-  /*implicit*/ val schema: Schema[Animal] = Schema.derived
+  implicit val schema: Schema[Animal] = Schema.derived
 
   case class Dog(name: String, training: Boolean, friends: List[Animal]) extends Animal
   case class Cat(name: String, favToy: String, friends: List[Animal])    extends Animal
