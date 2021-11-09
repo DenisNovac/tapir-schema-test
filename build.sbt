@@ -4,10 +4,10 @@ version := "0.1"
 
 scalaVersion := "2.13.4"
 
-val tapirVersion = "0.17.2"
+val tapirVersion = "0.17.15"
 
-libraryDependencies += "org.typelevel" %% "cats-core"            % "2.3.1"
-libraryDependencies += "org.typelevel" %% "cats-effect"          % "2.3.1"
+libraryDependencies += "org.typelevel" %% "cats-core"            % "2.6.1"
+libraryDependencies += "org.typelevel" %% "cats-effect"          % "2.5.1"
 libraryDependencies += "io.circe"      %% "circe-core"           % "0.13.0"
 libraryDependencies += "io.circe"      %% "circe-generic"        % "0.13.0"
 libraryDependencies += "io.circe"      %% "circe-generic-extras" % "0.13.0"
@@ -27,3 +27,5 @@ val tapirDeps = Seq(
 )
 
 libraryDependencies ++= tapirDeps.map(_ % tapirVersion)
+
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"

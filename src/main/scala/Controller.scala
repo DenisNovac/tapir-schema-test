@@ -9,13 +9,13 @@ import sttp.tapir.swagger.http4s.SwaggerHttp4s
 
 class Controller[F[_]: ContextShift: Sync: Concurrent: Timer](endpoints: Endpoints) {
 
-  private val logic: Seq[ServerEndpoint[Animal, Unit, Animal, Any, F]] =
+  private val logic: Seq[ServerEndpoint[QueryNode, Unit, QueryNode, Any, F]] =
     Seq(endpoints.postAnimal)
       .map(_.serverLogic(mirrorLogic))
 
   private def mirrorLogic[T](t: T): F[Either[Unit, T]] = Sync[F].delay(t.asRight[Unit])
 
-  private val yaml: String = OpenAPIDocsInterpreter.toOpenAPI(logic.map(_.endpoint), "Test", "0.1").toYaml
+  private val yaml: String = OpenAPIDocsInterpreter.toOpenAPI(logic.map(_.endpoint), "Validator test", "0.1").toYaml
 
   private val swagger: HttpRoutes[F] = new SwaggerHttp4s(yaml).routes[F]
 
