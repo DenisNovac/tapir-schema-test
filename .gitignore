@@ -1,0 +1,10 @@
+.idea
+.metals
+.code
+target
+.bloop
+*.log
+**/target/
+**/logs/
+params.conf
+/.bsp/
