@@ -1,3 +1,5 @@
+package com.github.denisnovac.multiplenames.v2
+
 import cats.effect.{Concurrent, ContextShift, Sync, Timer}
 import cats.implicits._
 import org.http4s.HttpRoutes
@@ -15,10 +17,10 @@ class Controller[F[_]: ContextShift: Sync: Concurrent: Timer](endpoints: Endpoin
 
   private def mirrorLogic[T](t: T): F[Either[Unit, T]] = Sync[F].delay(t.asRight[Unit])
 
-  private val yaml: String = OpenAPIDocsInterpreter.toOpenAPI(logic.map(_.endpoint), "Test", "0.1").toYaml
+  private val yaml: String = OpenAPIDocsInterpreter().toOpenAPI(logic.map(_.endpoint), "Test v2", "0.1").toYaml
 
-  private val swagger: HttpRoutes[F] = new SwaggerHttp4s(yaml).routes[F]
+  private val swagger: HttpRoutes[F] = new SwaggerHttp4s(yaml, contextPath = List("v2", "docs")).routes[F]
 
-  def routes: HttpRoutes[F] = Http4sServerInterpreter.toRoutes(logic.toList) <+> swagger
+  def routes: HttpRoutes[F] = Http4sServerInterpreter().toRoutes(logic.toList) <+> swagger
 
 }

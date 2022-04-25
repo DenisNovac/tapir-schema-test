@@ -4,7 +4,7 @@ version := "0.1"
 
 scalaVersion := "2.13.4"
 
-val tapirVersion = "0.17.2"
+val tapirVersion = "0.18.3"
 
 libraryDependencies += "org.typelevel" %% "cats-core"            % "2.3.1"
 libraryDependencies += "org.typelevel" %% "cats-effect"          % "2.3.1"

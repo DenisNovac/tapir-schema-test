@@ -1,3 +1,5 @@
+package com.github.denisnovac.multiplenames.v2
+
 import io.circe.Codec
 import io.circe.generic.AutoDerivation
 import io.circe.generic.extras.semiauto.deriveConfiguredCodec
@@ -18,9 +20,8 @@ object Animal extends AutoDerivation with SchemaDerivation {
 
   implicit val tapirConfig: TapirConfiguration = TapirConfiguration.default.withDiscriminator("type")
 
-  // It can't be implicit since recursive derivation fails
-  implicit val schema: Schema[Animal] = Schema.derived
+  implicit lazy val schema: Schema[Animal] = Schema.derived
 
-  case class Dog(name: String, training: Boolean, friends: List[Animal]) extends Animal
-  case class Cat(name: String, favToy: String, friends: List[Animal])    extends Animal
+  case class Dog(name: String, friends: List[Animal]) extends Animal
+  case class Cat(name: String, friends: List[Animal]) extends Animal
 }
